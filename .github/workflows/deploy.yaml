@@ -1,0 +1,34 @@
+name: Deploy to GitHub Pages
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v2
+
+      - name: Set Up Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: 14
+
+      - name: Install Dependencies
+        run: npm install # または yarn install
+
+      - name: Build
+        run: npm run build # ビルドコマンドを適切なものに変更
+
+      - name: Deploy to GitHub Pages
+        uses: JamesIves/github-pages-deploy-action@3.7.1
+        with:
+          branch: gh-pages # デプロイ先のブランチ
+          folder: build # ビルドされたファイルが存在するディレクトリ
+
+      - name: Cleanup
+        run: rm -rf node_modules # オプション：不要なファイルを削除
