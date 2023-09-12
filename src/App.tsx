@@ -3,6 +3,7 @@ import { Box, Textarea, Button, VStack, Heading, Alert, AlertIcon, Container, us
 import { FaSun, FaMoon, FaGithub, FaCopy } from 'react-icons/fa';
 import MarkdownToLatexConverter from './MarkdownToLatexConverter';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
+import logo from "./images/logo.png"
 
 const App: React.FC = () => {
   const { colorMode, toggleColorMode } = useColorMode();
@@ -76,7 +77,10 @@ const App: React.FC = () => {
           </Link>
         </HStack>
         <VStack spacing={6} align="stretch">
-          <Heading textAlign="center">🍳 Markdown Table to LaTeX  Converter</Heading>
+          <HStack justifyContent="center" mb={4}>
+            <img src={logo} alt="Image Description" style={{imageRendering: "pixelated", marginRight: "0.5em"}} width={48} height={48} />
+            <Heading textAlign="center">Markdown Table to LaTeX  Converter</Heading>
+          </HStack>
           <Textarea
             value={markdown}
             onChange={e => setMarkdown(e.target.value)}

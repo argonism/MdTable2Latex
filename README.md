@@ -1,6 +1,6 @@
-# 🍳 Markdown Table to LaTeX Converter
+# Markdown Table to LaTeX Converter
 
-Convert your Markdown tables to LaTeX format easily with our online tool.
+![](public/thumbson_16_t.png) Convert your Markdown tables to LaTeX format easily with our online tool.
 
 site: https://argonism.github.io/MdTable2Latex/
 
