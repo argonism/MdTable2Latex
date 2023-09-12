@@ -6,12 +6,11 @@ class MarkdownToLatexConverter {
             throw new Error("Invalid Markdown table format.");
         }
 
-        const header = lines[0].split('|').slice(1, -1);
+        const header = lines[0].split('|').slice(1, -1).map(cell => cell.trim());
         if (header.some(cell => cell.trim() === "")) {
             throw new Error("Header cells cannot be empty.");
         }
-
-        const body = lines.slice(2);
+        const body = lines.slice(2).map(line => line.split('|').slice(1, -1).map(cell => cell.trim()));
 
         const alignments: string[] = [];
         lines[1].split('|').slice(1, -1).forEach(align => {
@@ -30,12 +29,12 @@ class MarkdownToLatexConverter {
         latexTable += header.join(' & ') + " \\\\\n";
         latexTable += "\\hline\n";
 
-        body.forEach(line => {
-            latexTable += line.split('|').slice(1, -1).join(' & ') + " \\\\\n";
+        body.forEach(cells => {
+            latexTable += cells.join(' & ') + " \\\\\n";
             latexTable += "\\hline\n";
         });
-
-        latexTable += "\\end{tabular>";
+        
+        latexTable += "\\end{tabular}";
 
         return latexTable;
     }
