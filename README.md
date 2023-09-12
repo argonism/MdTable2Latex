@@ -4,7 +4,7 @@ Convert your Markdown tables to LaTeX format easily with our online tool.
 
 site: https://argonism.github.io/MdTable2Latex/
 
-![Screenshot of the tool](image.png) <!-- If you have a screenshot of the tool, add it here for better visualization -->
+![Screenshot of the tool](public/image.png) <!-- If you have a screenshot of the tool, add it here for better visualization -->
 
 ## Features
 
