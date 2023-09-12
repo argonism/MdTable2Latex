@@ -1,45 +1,58 @@
 class MarkdownToLatexConverter {
-    public convert(markdown: string): string {
+    convert(markdown: string, includePipeInHeader: boolean = true): string {
         const lines = markdown.trim().split('\n');
-
+    
         if (lines.length < 3) {
             throw new Error("Invalid Markdown table format.");
         }
-
-        const header = lines[0].split('|').slice(1, -1).map(cell => cell.trim());
-        if (header.some(cell => cell.trim() === "")) {
-            throw new Error("Header cells cannot be empty.");
-        }
-        const body = lines.slice(2).map(line => line.split('|').slice(1, -1).map(cell => cell.trim()));
-
-        const alignments: string[] = [];
-        lines[1].split('|').slice(1, -1).forEach(align => {
-            const trimmedAlign = align.trim();
-            if (trimmedAlign.startsWith(':') && trimmedAlign.endsWith(':')) {
-                alignments.push('c');
-            } else if (trimmedAlign.startsWith(':')) {
-                alignments.push('l');
-            } else if (trimmedAlign.endsWith(':')) {
-                alignments.push('r');
-            } else {
-                alignments.push('c')
-            }
-        });
-
-        let latexTable = "\\begin{tabular}{" + alignments.join(' | ') + "}\n";
-        latexTable += "\\hline\n";
-        latexTable += header.join(' & ') + " \\\\\n";
-        latexTable += "\\hline\n";
-
-        body.forEach(cells => {
-            latexTable += cells.join(' & ') + " \\\\\n";
-            latexTable += "\\hline\n";
-        });
-        
-        latexTable += "\\end{tabular}";
-
+    
+        const header = this.parseRow(lines[0]);
+        const body = lines.slice(2).map(line => this.parseRow(line));
+        const alignments = this.parseAlignments(lines[1]);
+    
+        this.validateColumnCounts(header, body);
+    
+        const latexTable = this.generateLatexTable(header, body, alignments, includePipeInHeader);
+    
         return latexTable;
     }
-}
+
+    private parseRow(row: string): string[] {
+        return this.trimCell(row.split('|').slice(1, -1));
+    }
+
+    private trimCell(cells: string[]): string[] {
+        return cells.map(cell => cell.trim());
+    }
+
+    private parseAlignments(alignmentsRow: string): string[] {
+        return this.trimCell(alignmentsRow.split('|').slice(1, -1)).map(align => {
+        if (align.startsWith(':') && align.endsWith(':')) return 'c';
+        else if (align.startsWith(':')) return 'l';
+        else if (align.endsWith(':')) return 'r';
+        else return 'c';
+        });
+    }
+
+    private validateColumnCounts(header: string[], body: string[][]): void {
+        const headerColumnCount = header.length;
+        if (body.some(row => row.length !== headerColumnCount)) {
+        throw new Error("Header and body column counts must match.");
+        }
+    }
+
+    private generateLatexTable(header: string[], body: string[][], alignments: string[], includePipeInHeader: boolean): string {
+        const headerRow = this.joinRow(header);
+        const bodyRows = body.map(cells => this.joinRow(cells)).join("\\hline\n");
+
+        const pipe = includePipeInHeader ? '|' : '';
+
+        return `\\begin{tabular}{${pipe}${alignments.join(pipe)}${pipe}}\n\\hline\n${headerRow}\\hline\n${bodyRows}\\hline\n\\end{tabular}`;
+    }
+
+    private joinRow(cells: string[]): string {
+        return cells.join(' & ') + " \\\\\n";
+    }
+    }
 
 export default MarkdownToLatexConverter;
