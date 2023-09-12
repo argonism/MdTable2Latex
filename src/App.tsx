@@ -76,7 +76,7 @@ const App: React.FC = () => {
           </Link>
         </HStack>
         <VStack spacing={6} align="stretch">
-          <Heading textAlign="center">Markdown to LaTeX Table Converter</Heading>
+          <Heading textAlign="center">🍳 Markdown Table to LaTeX  Converter</Heading>
           <Textarea
             value={markdown}
             onChange={e => setMarkdown(e.target.value)}

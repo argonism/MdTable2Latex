@@ -1,4 +1,4 @@
-# Markdown to LaTeX Table Converter
+# 🍳 Markdown Table to LaTeX Converter
 
 Convert your Markdown tables to LaTeX format easily with our online tool.
 
@@ -15,7 +15,7 @@ site: https://argonism.github.io/MdTable2Latex/
 
 ## Usage
 
-1. Visit [Markdown to LaTeX Table Converter](https://argonism.github.io/MdTable2Latex/)
+1. Visit [Markdown Table to LaTeX Converter](https://argonism.github.io/MdTable2Latex/)
 2. Paste your Markdown table into the input area.
 3. Click "Convert".
 4. Your LaTeX table will appear in the output area below.
