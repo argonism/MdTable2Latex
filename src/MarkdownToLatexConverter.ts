@@ -19,8 +19,10 @@ class MarkdownToLatexConverter {
                 alignments.push('c');
             } else if (trimmedAlign.startsWith(':')) {
                 alignments.push('l');
-            } else {
+            } else if (trimmedAlign.endsWith(':')) {
                 alignments.push('r');
+            } else {
+                alignments.push('c')
             }
         });
 
