@@ -1,10 +1,10 @@
 {
   "files": {
-    "main.js": "/MdTable2Latex/static/js/main.1208c36b.js",
+    "main.js": "/MdTable2Latex/static/js/main.ed45f4c6.js",
     "index.html": "/MdTable2Latex/index.html",
-    "main.1208c36b.js.map": "/MdTable2Latex/static/js/main.1208c36b.js.map"
+    "main.ed45f4c6.js.map": "/MdTable2Latex/static/js/main.ed45f4c6.js.map"
   },
   "entrypoints": [
-    "static/js/main.1208c36b.js"
+    "static/js/main.ed45f4c6.js"
   ]
 }
