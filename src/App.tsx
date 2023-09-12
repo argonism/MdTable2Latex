@@ -75,7 +75,7 @@ const App: React.FC = () => {
         </HStack>
         <VStack spacing={6} align="stretch">
           <HStack justifyContent="center" mb={4}>
-            <img src={logo} alt="logo" style={{ image-rendering: "pixelated", marginRight: "0.5em" }} width={48} height={48} />
+            <img src={logo} alt="logo" style={{ imageRendering: "pixelated", marginRight: "0.5em" }} width={48} height={48} />
             <Heading textAlign="center">Markdown Table to LaTeX  Converter</Heading>
           </HStack>
           <Textarea
