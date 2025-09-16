@@ -22,7 +22,12 @@ class MarkdownToLatexConverter {
     }
 
     private trimCell(cells: string[]): string[] {
-        return cells.map(cell => cell.trim());
+        return cells.map(cell => this.processMarkdownLinks(cell.trim()));
+    }
+
+    private processMarkdownLinks(cell: string): string {
+        // Convert markdown links [text](url) to LaTeX \href{url}{text}
+        return cell.replace(/\[([^\]]+)\]\(([^\)]+)\)/g, '\\href{$2}{$1}');
     }
 
     private parseAlignments(alignmentsRow: string): string[] {

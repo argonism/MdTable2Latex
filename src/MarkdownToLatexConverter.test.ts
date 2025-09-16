@@ -135,4 +135,23 @@ Cell 4 & Cell 5 & Cell 6 \\\\
 
     expect(latexTable).toEqual(expectedLatex);
   });
+
+  it('should convert markdown links to LaTeX href commands in table cells', () => {
+    const markdownTable = `
+      | a   | b                           |
+      | --- | --------------------------- |
+      | 1   | [link](https://example.com) |`;
+    const expectedLatex = `\\begin{tabular}{|c|c|}
+\\hline
+a & b \\\\
+\\hline
+1 & \\href{https://example.com}{link} \\\\
+\\hline
+\\end{tabular}`;
+
+    const converter = new MarkdownToLatexConverter();
+    const latexTable = converter.convert(markdownTable);
+
+    expect(latexTable).toEqual(expectedLatex);
+  });
 });
