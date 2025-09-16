@@ -1,19 +1,19 @@
 class MarkdownToLatexConverter {
     convert(markdown: string, includePipeInHeader: boolean = true): string {
         const lines = markdown.trim().split('\n');
-    
+
         if (lines.length < 3) {
             throw new Error("Invalid Markdown table format.");
         }
-    
+
         const header = this.parseRow(lines[0]);
         const body = lines.slice(2).map(line => this.parseRow(line));
         const alignments = this.parseAlignments(lines[1]);
-    
+
         this.validateColumnCounts(header, body);
-    
+
         const latexTable = this.generateLatexTable(header, body, alignments, includePipeInHeader);
-    
+
         return latexTable;
     }
 
@@ -22,7 +22,12 @@ class MarkdownToLatexConverter {
     }
 
     private trimCell(cells: string[]): string[] {
-        return cells.map(cell => cell.trim());
+        return cells.map(cell => this.processMarkdownLinks(cell.trim()));
+    }
+
+    private processMarkdownLinks(cell: string): string {
+        // Convert markdown links [text](url) to LaTeX \href{url}{text}
+        return cell.replace(/\[([^\]]*)\]\(([^)]+)\)/g, '\\href{$2}{$1}');
     }
 
     private parseAlignments(alignmentsRow: string): string[] {
